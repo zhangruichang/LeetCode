@@ -1,0 +1,9 @@
+aa a
+aa aa
+aaa aa
+aa *
+aa a*
+ab ?*
+aab c*a*b
+ab ?
+aaabbbb ??*
