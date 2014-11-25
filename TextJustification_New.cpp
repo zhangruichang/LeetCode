@@ -22,6 +22,24 @@ typedef unsigned long long ULL;
 #define pb push_back
 #define CLR(a,x) memset(a,x,sizeof(a))
 
+/*
+
+For example,
+words: ["This", "is", "an", "example", "of", "text", "justification."]
+L: 16.
+
+Return the formatted lines as:
+[
+   "This    is    an",
+   "example  of text",
+   "justification.  "
+]
+Note: Each word is guaranteed not to exceed L in length.
+
+
+*/
+
+
 class Solution {
 public:
     vector<string> fullJustify(vector<string> &words, int L) {
@@ -33,9 +51,11 @@ public:
         {
             si=i;
             //curlinelen=0;
-            curwordslen=curlinelen=words[si].size();
-            while(si<strslen-1 && curlinelen<=L) curlinelen+= ( words[++si].size()+1 ),curwordslen+= words[si].size() ; // last line
-            if(si==strslen-1) //last return;
+            curwordslen=curlinelen=words[si++].size();
+            while(si<strslen && curlinelen<=L) curlinelen+= ( words[si].size()+1 ),curwordslen+= words[si++].size() ; // last line
+            curwordslen-=words[si-1].size();
+            
+            if(si==strslen && curlinelen<=L) //last return;
             {
                 line="";
                 for(int j=i;j<strslen;j++) line+=words[j];
@@ -43,8 +63,8 @@ public:
                 ans.push_back(line);
                 break;
             }
-            
-            linewordsnum=si-i;remainspacenum=curlinelen-curwordslen;
+            cout<<L<<" "<<curlinelen<<endl;
+            linewordsnum=si-i-1;remainspacenum=L-curwordslen;
             vector<string> spacenum(linewordsnum-1," "); remainspacenum-=(linewordsnum-1);
             
             int spacei=0;
@@ -52,7 +72,7 @@ public:
             
             
             si=i;
-            line=words[si]; 
+            line=words[si++]; 
             for(int j=0;j<spacenum.size();j++)
             {
                 line+=spacenum[j];
@@ -66,8 +86,8 @@ public:
 
 int main()
 {
-    vector<string> words={"This", "is", "an", "example", "of", "text", "justification."};
-    int L=16;
+    vector<string> words={"My","momma","always","said,","Life","was","like","a","box","of","chocolates.","You","never","know","what","you're","gonna","get."};
+    int L=12;
     auto ans=F.fullJustify(words,L);
     for(int i=0;i<ans.size();i++)
         cout<<ans[i]<<endl;
