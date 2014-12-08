@@ -1,5 +1,8 @@
-#include<cstdio>
+#include<stdio.h>  
+#include <math.h>
+/*
 #include<iostream>
+
 #include<string>
 #include<cstring>
 #include<cmath>
@@ -73,9 +76,16 @@ public:
         return ans;
     }
 } F;
-
+*/
 int main()
 {
-    cout<<F.multiply("834","1")<<endl;
+    int a;char c;bool d;
+    int x =3;
+    double y=sqrt(x);
+    char suf[200] ;
+    scanf("%s" , suf) ;
+    printf("%s" , suf) ;
+    //scanf("%d%c",&a,&c);printf("%d %c", a, c);
+    //cout<<F.multiply("834","1")<<endl;
     return 0;
 }

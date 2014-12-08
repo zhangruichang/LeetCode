@@ -28,6 +28,19 @@ public:
 			return result*result;
 		//return powx(x,n/2)*powx(x,n/2);
 	}
+    double pow(double x, int n) {
+        if(n==0) return 1;
+        else if(n<0) return 1/pow(x,-(n+1))/x;
+        else
+        {
+            if(n&1) return x*pow(x,n-1);
+            else
+            {
+                double tmp=pow(x,n>>1);
+                return tmp*tmp;
+            }
+        }
+    }
 } F;
 
 int main()
