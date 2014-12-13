@@ -24,11 +24,10 @@ typedef unsigned long long ULL;
 
 class Solution {
 public:
-    bool digitflag;
     int CharIndex(char c)
     {
         if(c=='+' || c=='-' ) return 0;
-        else if(isdigit(c)) {digitflag=1;return 1;}
+        else if(isdigit(c)) return 1;
         else if(c=='.') return 2;
         else if(c=='e' ||c=='E') return 3;
         else
@@ -39,14 +38,13 @@ public:
         int transfer[8][4]={//+,-  digit  dot  exp
             1,2,6,0,
             0,2,6,0,
-            0,2,6,3,
+            0,2,/*6*/7,3,
             4,5,0,0,
             0,5,0,0,
             0,5,0,0,
-            0,7,0,3,
+            0,7,0,/*3*/0,
             0,7,0,3
         };
-        digitflag=0;
         while( *s == ' ') s++;// delete preceding space
         if(!(*s)) return 0;// only with space
         int status=0;
@@ -62,11 +60,10 @@ public:
             int i=CharIndex(*s);
             if(i==-1) return 0;
             status=transfer[status][i];
-            if(i==3 && !digitflag) return 0;
             if(!status) return 0;
             s++;
         }
-        return status==2 || status==5 || (digitflag && status==6) || status==7;
+        return status==2 || status==5 || status==7;
     }
 } F;
 //3. --> 1
