@@ -54,6 +54,25 @@ int MaxLen()
     return maxlen;
 }
 
+int MaxLen_Scan()
+{
+    dp[0]=a[0];;//dp[i]:sum [0,,i]
+    for(int i=1;i<n;i++)
+        dp[i]=dp[i-1]+a[i];
+    unordered_map<int, vector<int> > table;
+    for(int i=0;i<n;i++)
+        table[dp[i]].push_back(i);
+    int maxlen=0;;
+    for(auto i:table)
+    {
+        if(!i.first)
+            maxlen=max(maxlen, *max_element(i.second.begin(), i.second.end())+1);
+        else
+            maxlen=max(maxlen, *max_element(i.second.begin(), i.second.end())-*min_element(i.second.begin(), i.second.end()));
+    }
+    return maxlen;
+}
+
 int main()
 {
     freopen("in.txt","r",stdin);
