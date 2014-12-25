@@ -20,7 +20,7 @@ typedef unsigned long long ULL;
 #define mp make_pair
 #define pb push_back
 #define CLR(a,x) memset(a,x,sizeof(a))
-
+//time: O(Nlgk), space: O(k)
 struct ListNode
 {
     int val;
