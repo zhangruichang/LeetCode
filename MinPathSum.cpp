@@ -6,38 +6,17 @@ using namespace std;
 
 class Solution {
 public:
-    int dp[500][500];
+    int dp[1000][1000];
     int minPathSum(vector<vector<int> > &grid) {
-        //m rows, n cols
-        int m=grid.size();
-        if(m<=0)
-            return 0;
+        int m=grid.size();if(m<=0) return 0;
         int n=grid[0].size();
-        if(n<=0)
-            return 0;
-    
+        memset(dp, 0, sizeof(dp));
         dp[0][0]=grid[0][0];
-        
-        
-        for(int j=1;j<=n-1;j++)
-            dp[0][j]=dp[0][j-1]+grid[0][j];
-        for(int i=1;i<=m-1;i++)
-            dp[i][0]=dp[i-1][0]+grid[i][0];
-        for(int i=1;i<=m-1;i++)
-        {
-            for(int j=1;j<=n-1;j++)
-            {
-                dp[i][j]=min(dp[i-1][j],dp[i][j-1])+grid[i][j];
-            }
-        }
-        /*
-        for(int i=0;i<=m-1;i++)
-        {    for(int j=0;j<=n-1;j++)
-                cout<<dp[i][j]<<" ";
-            cout<<endl;
-            }*/
+        for(int i=1;i<m;i++) dp[i][0]=dp[i-1][0]+grid[i][0];
+        for(int j=1;j<n;j++) dp[0][j]=dp[0][j-1]+grid[0][j];
+        for(int i=1;i<m;i++) for(int j=1;j<n;j++)
+            dp[i][j]=min(dp[i-1][j], dp[i][j-1]) + grid[i][j];
         return dp[m-1][n-1];
-        
     }
 };
 
