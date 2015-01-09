@@ -24,6 +24,35 @@ public:
     }
 };
 
+//recursive solution
+class Solution {
+public:
+    bool find(int A[], int low, int high, int x)
+    {
+        if(low<=high)
+        {
+            if(low+1==high) return A[low] == x ? 1 : (A[high]==x ? 1 : 0);
+            int mid=(low+high)/2;
+            if(x==A[mid]) return 1;
+            if(A[mid] > A[low])
+            {
+                if(A[low] <=x && x<A[mid]) return find(A, low, mid-1, x);//high=mid-1;
+                else return find(A, mid+1, high, x);
+            }
+            else if(A[mid] < A[low])
+            {
+                if(A[mid] < x && x<=A[high]) return find(A, mid+1, high, x);
+                else return find(A, low, mid-1, x);
+            }
+            else
+                return find(A, low+1, high, x);
+        }
+        return 0;
+    }
+    bool search(int A[], int n, int x) {
+        return find(A, 0, n-1, x);
+    }
+};
 
 https://oj.leetcode.com/problems/search-in-rotated-sorted-array-ii/
 class Solution {
