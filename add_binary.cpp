@@ -9,9 +9,9 @@ class Solution {
 public:
     string addBinary(string a, string b) {
         if ( a == "0" && b == "0" ) return "0" ;
-        string cans = "" ;
+        string cans;
         vector<int> c ;
-        int len = max(a.size() , b.size()) + 3 ;
+        int len = max(a.size() , b.size()) + 1 ;
         reverse(a.begin() , a.end()) ;
         reverse(b.begin() , b.end()) ;
         while ( a.size() < len ) a.push_back('0') ;
@@ -25,7 +25,7 @@ public:
         for ( int i = c.size()-1 ; i >= 0 ; i -- ) cans.push_back(c[i]+'0') ;
         return cans ;
     }
-} F ;
+};
 
 int main() {
     cout << F.addBinary("0","0") << "\n" ;
