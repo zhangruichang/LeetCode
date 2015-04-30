@@ -80,68 +80,18 @@ LL MultMod(LL a,LL b,LL MOD)
 }
 int a[maxn], n, t, m;
 
-
 class Solution {
 public:
-    int countPrimes(int n) {
-        if (n <= 1) return 0;
-        vector<bool> primes(n, true);
-        int i = 2;
-        while (i * i <= n)
+    ListNode* removeElements(ListNode* head, int val) {
+        ListNode Dummy(-1);Dummy.next=head;
+        for(ListNode*p=&Dummy;p->next;)
         {
-            for (int step = 2; i * step < n; step++)
-                primes[i * step] = false;
-            do{ i++; }while(i*i <= n && !primes[i]);
+            if(p->next->val==val) p->next=p->next->next;
+            else p=p->next;
         }
-        int sum = 0;
-        for(int i = 2; i < n; i++)
-            if(primes[i])
-                sum++;
-        return sum;
+        return Dummy.next;
     }
 };
-class Solution {
-public:
-    int countPrimes(int n) {
-        if (n <= 1) return 0;
-        vector<bool> primes(n, true);
-        int i = 2;
-        while (i * i <= n)
-        {
-            if (!primes[i]) continue;
-            int step = i;
-            while(i * step < n){
-                primes[i * step] = false;
-                step++;
-            }
-            i++;
-        }
-        int sum = 0;
-        for(int i = 2; i < n; i++)
-            if(primes[i])
-                sum++;
-        return sum;
-    }
-};
-
-bool P[5000000+1];
-class Solution {
-public:
-    int countPrimes(int n) {//count <n prime
-        memset(P, 0, sizeof P);P[0]=P[1]=1;
-        for(int i=2;i*i<=n;i++)
-        {
-            if(!P[i])
-            {
-                for(int j=i*i;j<=n;j+=i) P[j]=1;
-            }
-        }
-        int cnt=0;
-        for(int i=1;i<n;i++) cnt+=(!P[i]);
-        return cnt;
-    }
-};
-
 int main()
 {
 /*

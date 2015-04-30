@@ -80,65 +80,26 @@ LL MultMod(LL a,LL b,LL MOD)
 }
 int a[maxn], n, t, m;
 
-
 class Solution {
 public:
-    int countPrimes(int n) {
-        if (n <= 1) return 0;
-        vector<bool> primes(n, true);
-        int i = 2;
-        while (i * i <= n)
+    bool isIsomorphic(string s, string t) {
+        int n=s.size();
+        bool v[n];memset(v, 0 ,sizeof v);
+        unordered_map<char, vector<int>> myhash;
+        unordered_map<char, char> myhashmap;
+        for(int i=0;i<n;i++) myhash[s[i]].push_back(i);
+        for(int i=0;i<n;i++)
         {
-            for (int step = 2; i * step < n; step++)
-                primes[i * step] = false;
-            do{ i++; }while(i*i <= n && !primes[i]);
-        }
-        int sum = 0;
-        for(int i = 2; i < n; i++)
-            if(primes[i])
-                sum++;
-        return sum;
-    }
-};
-class Solution {
-public:
-    int countPrimes(int n) {
-        if (n <= 1) return 0;
-        vector<bool> primes(n, true);
-        int i = 2;
-        while (i * i <= n)
-        {
-            if (!primes[i]) continue;
-            int step = i;
-            while(i * step < n){
-                primes[i * step] = false;
-                step++;
-            }
-            i++;
-        }
-        int sum = 0;
-        for(int i = 2; i < n; i++)
-            if(primes[i])
-                sum++;
-        return sum;
-    }
-};
-
-bool P[5000000+1];
-class Solution {
-public:
-    int countPrimes(int n) {//count <n prime
-        memset(P, 0, sizeof P);P[0]=P[1]=1;
-        for(int i=2;i*i<=n;i++)
-        {
-            if(!P[i])
+            if(v[i])
             {
-                for(int j=i*i;j<=n;j+=i) P[j]=1;
+                if(s[i]!=t[i]) return 0;
+                continue;
             }
+            if(myhashmap.count(t[i])) return 0;
+            myhashmap[t[i]]=s[i];
+            for(auto e: myhash[s[i]]) s[e]=t[i], v[e]=1;;
         }
-        int cnt=0;
-        for(int i=1;i<n;i++) cnt+=(!P[i]);
-        return cnt;
+        return 1;
     }
 };
 
@@ -153,9 +114,9 @@ int main()
     cin>>t;
     for(int ti=1;ti<=t;ti++)
     {
-        cin
+        //cin
         printf("Case #%d:\n", ti);
-        cout
+        //cout
     }
 	return 0;
 }
