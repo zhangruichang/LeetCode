@@ -82,40 +82,18 @@ int a[maxn], n, t, m;
 
 class Solution {
 public:
-    int numIslands(vector<vector<char>> &g)
+    int longestValidParentheses(string s)
     {
-        m=g.size();
-        if(m<=0) return 0;
-        n=g[0].size();g_=g;
-        memset(v, 0, sizeof v);
-        int ans=0;
-        for(int i=0;i<m;i++) for(int j=0;j<n;j++)
+        int n=s.size();
+        int dp[n+1];memset(dp, 0 ,sizeof dp);
+        int maxlen=0;
+        for(int i=1;i<=n;i++)
         {
-            if(g[i][j]=='1' && !v[i][j])
-            {
-                dfs(i, j);ans++;
-            }
+            if(s[i-1]==')' && i-2-dp[i-1]>=0 && s[i-2-dp[i-1]]=='(')
+                dp[i]=dp[i-1]+2+dp[i-2-dp[i-1]];
+            maxlen=max(maxlen, dp[i]);
         }
-        return ans;
-    }
-private:
-    const int dx[4]={-1,1, 0, 0},dy[4]={0, 0, -1, 1};
-    int m, n;
-    bool v[300][300];
-    vector<vector<char>> g_;
-    bool outrange(int i, int j)
-    {
-        return i>=m || i<0 || j>=n || j<0;
-    }
-    void dfs(int i, int j)
-    {
-        if(outrange(i, j) || v[i][j] || g_[i][j]=='0') return ;
-        v[i][j]=1;
-        for(int k=0;k<4;k++)
-        {
-            int nx=i+dx[k], ny=j+dy[k];
-            dfs(nx, ny);
-        }
+        return maxlen;
     }
 };
 
