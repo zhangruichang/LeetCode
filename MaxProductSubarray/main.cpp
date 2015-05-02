@@ -88,16 +88,8 @@ public:
         for(int i=1;i<n;i++)
         {
             int prelocalmin=localmin, prelocalmax=localmax;
-            if(nums[i]<0)
-            {
-                prelocalmax=max(nums[i], localmin*nums[i]);
-                prelocalmin=min(nums[i], localmax*nums[i]);
-            }
-            else
-            {
-                prelocalmax=max(nums[i], localmax*nums[i]);
-                prelocalmin=min(nums[i], localmin*nums[i]);
-            }
+            prelocalmax=max(nums[i], (nums[i]<0 ? localmin : localmax)*nums[i]);
+            prelocalmin=min(nums[i], (nums[i]<0 ? localmax : localmin)*nums[i]);
             maxpro=max(maxpro, prelocalmax);
             localmax=prelocalmax;
             localmin=prelocalmin;
