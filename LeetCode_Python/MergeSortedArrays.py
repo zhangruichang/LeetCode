@@ -6,13 +6,9 @@ class Solution:
     # @param {integer} n
     # @return {void} Do not return anything, modify nums1 in-place instead.
     def merge(self, nums1, m, nums2, n):
-        prevlen1=len(nums1)
-        prevlen2=len(nums2)
         i=m-1
         j=n-1
         k=m+n-1
-        m1=[0]*n
-        nums1+=m1
         while i>=0 and j>=0:
             if nums1[i]>nums2[j]:
                 nums1[k]=nums1[i]
@@ -25,7 +21,8 @@ class Solution:
             for jj in range(j, -1, -1):
                 nums1[k]=nums2[jj]
                 k-=1
-        nums1=nums1[:-(prevlen1+prevlen2-m-n)]
+
+
 
 S=Solution()
 num1=[0]
