@@ -41,7 +41,9 @@ class Trie:
     def startsWith(self, prefix):
         p=self.root
         for e in prefix:
-            index=ord(e)-ord('a')
+            index=ord(e)-ord('a')     .;'' \
+                                        ''/'/' \
+                                           ''
             if p.Child[index] is None:
                 return False
             p=p.Child[index]
