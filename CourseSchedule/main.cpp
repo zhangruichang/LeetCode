@@ -61,32 +61,38 @@ LL MultMod(LL a,LL b,LL MOD)
     return ret;
 }
 int a[maxn], n, t, m;
+struct Node
+{
+    int index;
+    int indegree;
+    bool operator<(Node n) const
+    {
+        return indegree>n.indegree;
+    }
+};
 
 class Solution {
 public:
     bool canFinish(int n, vector<pair<int, int>>& prerequisites) {
-        bool A[n][n];
+        //bool A[n][n];
+        list<int> A[n];
         int indegree[n];
-        memset(A, 0, sizeof A);
-        for(auto e: prerequisites) A[e.second][e.first]=1;
+        priority_queue<Node> pq;
+        //memset(A, 0, sizeof A);
+        for(auto e: prerequisites) A[e.second].push_back(e.first);
         for(int j=0;j<n;j++)
         {
-            int cnt=0;
-            for(int i=0;i<n;i++)
-                cnt+=A[i][j];
-            indegree[j]=cnt;
-            //cout<<cnt<<endl;
+            for(auto e: A[j])
+                indegree[e.second]++;
         }
+        for(int i=0;i<n;i++) pq.push({i, indegree[i]});
         for(int i=0;i<n;i++)
         {
-            int j;
-            for(j=0;j<n;j++)
-            {
-                if(!indegree[j]) break;
-            }
-            if(j>=n) return 0;
-            indegree[j]=-1;//mark as delete from graph;
-            for(int k=0;k<n;k++) if(A[j][k]) indegree[k]--;
+            auto cur=pq.top();pq.pop();
+            if(cur.indegree) return 0;
+            //indegree[j]=-1;//mark as delete from graph;
+            for(auto e: A[cur.index]) indegree[e]--;
+            //for(int k=0;k<n;k++) if(A[j][k]) indegree[k]--;
         }
         return 1;
     }
