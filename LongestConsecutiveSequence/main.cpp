@@ -60,34 +60,26 @@ LL MultMod(LL a,LL b,LL MOD)
     }
     return ret;
 }
-
 int a[maxn], n, t, m;
 
 class Solution {
 public:
-    string shortestPalindrome(string s) {
-        int sn=s.size();
-        string rev=s;
-        reverse(rev.begin(), rev.end());
-        string ss=s+"#"+rev+"#";
-        int Next[sn*2+2];
-        GetNext(ss, Next);
-        return rev.substr(0, sn- Next[sn*2+1])+s;
-    }
-    void GetNext(string s, int *Next)
-    {
-        int n=s.size();
-        Next[0]=-1;
-        for(int i=0;i<n-1;i++)
+    int longestConsecutive(vector<int>& nums) {
+        int n=nums.size(), ans=0;
+        unordered_map<int, bool> um;
+        for(auto e: nums) um[e]=0;
+        for(int i=0;i<n;i++)
         {
-            int k=Next[i];
-            while(k!=-1 && s[k]!=s[i])
-                k=Next[k];
-            Next[i+1]=k+1;
+            if(um[nums[i]]) continue;
+            um[nums[i]]=1;
+            int j=nums[i]-1, k=nums[i]+1;
+            while(um.find(j)!=um.end()) um[j--]=1;
+            while(um.find(k)!=um.end()) um[k--]=1;
+            ans=max(ans, k-j-1);
         }
+        return ans;
     }
-};
-
+} S;
 
 int main()
 {
@@ -97,8 +89,7 @@ int main()
     freopen ("out.txt" , "w" , stdout);
 #endif
 */
-    Solution S;
-    string s="aaaa";
-    cout<<S.shortestPalindrome(s)<<endl;
+    vector<int> nums={1, 2, 0, 1};
+    cout<<S.longestConsecutive(nums);
 	return 0;
 }
