@@ -9,8 +9,8 @@ class Solution:
     # @param {ListNode} head
     # @return {ListNode}
     def reverseList(self, head):
-        prev=None
-        p=head
+        prev, p=None, head
+        #p=head
         while p is not None:
             pnext=p.next
             p.next=prev

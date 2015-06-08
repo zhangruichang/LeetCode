@@ -14,9 +14,8 @@ class Solution:
             return 0
         if len(nums)==1:
             return nums[0]
-        v1=nums[0:len(nums)-1]
-        v2=nums[1:]
-        print v1, v2
+        v1, v2=nums[0:len(nums)-1], nums[1:]
+        #print v1, v2
         return max(self.robI(v1), self.robI(v2))
 
 S=Solution()

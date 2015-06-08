@@ -10,8 +10,7 @@ class Solution:
     # @param {ListNode} l2
     # @return {ListNode}
     def addTwoNumbers(self, l1, l2):
-        Dummy=ListNode(-1)
-        p=Dummy
+        p=Dummy=ListNode(-1)
         c=0
         while l1 is not None or l2 is not None or c != 0:
             sum=c
@@ -22,6 +21,6 @@ class Solution:
                 sum=sum+l2.val
                 l2=l2.next
             p.next=ListNode(sum%10)
-            p=p.next
-            c=sum/10
+            p, c=p.next, sum/10
         return Dummy.next
+
